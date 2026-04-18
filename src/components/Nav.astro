@@ -1,0 +1,95 @@
+---
+const links = [
+  { href: "#features", label: "Tính năng" },
+  { href: "#download", label: "Tải về" },
+  { href: "#faq", label: "FAQ" },
+]
+---
+
+<nav class="sticky top-0 z-50 border-b border-gray-200/80 bg-white/80 backdrop-blur-lg">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+    <a href="#" class="flex items-center gap-2 text-lg font-extrabold text-gray-900">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white text-sm">W</span>
+      <span>Workmate AI</span>
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      {
+        links.map((l) => (
+          <a href={l.href} class="text-sm font-medium text-gray-700 transition hover:text-brand-600">
+            {l.label}
+          </a>
+        ))
+      }
+      <a
+        href="mailto:info@aiws.vn"
+        class="text-sm font-medium text-gray-700 transition hover:text-brand-600"
+      >
+        Liên hệ
+      </a>
+      <a
+        href="#download"
+        class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
+      >
+        Tải miễn phí
+      </a>
+    </div>
+
+    <button
+      id="nav-toggle"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 md:hidden"
+      aria-label="Mở menu"
+      aria-expanded="false"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="nav-mobile" class="hidden border-t border-gray-200 bg-white md:hidden">
+    <div class="space-y-1 px-6 py-4">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-600"
+          >
+            {l.label}
+          </a>
+        ))
+      }
+      <a
+        href="mailto:info@aiws.vn"
+        class="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-600"
+      >
+        Liên hệ
+      </a>
+      <a
+        href="#download"
+        class="mt-3 block rounded-lg bg-brand-600 px-3 py-2.5 text-center text-base font-semibold text-white"
+      >
+        Tải miễn phí
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById("nav-toggle")
+  const mobile = document.getElementById("nav-mobile")
+  toggle?.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true"
+    toggle.setAttribute("aria-expanded", String(!expanded))
+    mobile?.classList.toggle("hidden")
+  })
+  // Close menu khi click link
+  mobile?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      mobile.classList.add("hidden")
+      toggle?.setAttribute("aria-expanded", "false")
+    }),
+  )
+</script>
