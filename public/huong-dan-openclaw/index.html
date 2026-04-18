@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workmate AI — Hướng Dẫn Sử Dụng</title>
+  <style>
+    :root {
+      --bg:#0f1117;--bg2:#1a1d27;--bg3:#232635;--border:#2e3247;
+      --accent:#6c63ff;--accent2:#a78bfa;--text:#e2e8f0;--muted:#8892a4;
+      --dim:#5a6477;--green:#34d399;--yellow:#fbbf24;--red:#f87171;
+      --blue:#60a5fa;--teal:#2dd4bf;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.7;display:flex}
+    #sidebar{width:268px;min-width:268px;height:100vh;position:sticky;top:0;overflow-y:auto;background:var(--bg2);border-right:1px solid var(--border);padding:24px 0}
+    #sidebar::-webkit-scrollbar{width:4px}
+    #sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+    .brand{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:16px}
+    .brand h1{font-size:18px;font-weight:700;color:var(--accent2)}
+    .brand p{font-size:11px;color:var(--muted);margin-top:2px}
+    .sec-label{padding:6px 20px 4px;font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--dim);text-transform:uppercase;margin-top:8px}
+    #sidebar a{display:block;padding:6px 20px;font-size:13px;color:var(--muted);text-decoration:none;border-left:2px solid transparent;transition:all .15s}
+    #sidebar a:hover{color:var(--text);background:var(--bg3);border-left-color:var(--accent)}
+    #sidebar a.active{color:var(--accent2);border-left-color:var(--accent);background:var(--bg3)}
+    #main{flex:1;max-width:860px;padding:48px 56px;overflow-x:hidden}
+    h1.title{font-size:36px;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,var(--accent2),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+    .subtitle{color:var(--muted);font-size:15px;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+    h2{font-size:24px;font-weight:700;color:var(--text);margin:56px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border);scroll-margin-top:24px}
+    h2 .ch{color:var(--accent);font-size:13px;font-weight:600;display:block;margin-bottom:4px;letter-spacing:.5px}
+    h3{font-size:17px;font-weight:600;color:var(--accent2);margin:32px 0 10px;scroll-margin-top:24px}
+    h4{font-size:12px;font-weight:700;color:var(--yellow);margin:20px 0 8px;text-transform:uppercase;letter-spacing:.5px}
+    p{margin-bottom:12px}
+    ul,ol{margin:10px 0 14px 20px}
+    li{margin-bottom:5px}
+    .callout{border-radius:8px;padding:14px 18px;margin:16px 0;border-left:3px solid;font-size:14px}
+    .tip{background:#1a2d22;border-color:var(--green)}.tip strong{color:var(--green)}
+    .note{background:#1a2040;border-color:var(--blue)}.note strong{color:var(--blue)}
+    .warn{background:#2a2010;border-color:var(--yellow)}.warn strong{color:var(--yellow)}
+    .danger{background:#2a1a1a;border-color:var(--red)}.danger strong{color:var(--red)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px;margin:16px 0}
+    .card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .2s}
+    .card:hover{border-color:var(--accent)}
+    .card .ico{font-size:22px;margin-bottom:8px}
+    .card h4{font-size:13px;font-weight:600;color:var(--text);margin:0 0 4px;text-transform:none;letter-spacing:0}
+    .card p{font-size:12px;color:var(--muted);margin:0}
+    table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+    th{background:var(--bg3);color:var(--muted);font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+    td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:var(--bg2)}
+    code{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:'Cascadia Code','Fira Code',monospace;font-size:13px;color:var(--teal)}
+    pre{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;overflow-x:auto;margin:14px 0}
+    pre code{background:none;border:none;padding:0;font-size:13px;color:var(--text)}
+    .badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;margin-left:6px;vertical-align:middle}
+    .bp{background:#2a1f40;color:var(--accent2)}
+    .ba{background:#2a2010;color:var(--yellow)}
+    .steps{margin:16px 0}
+    .step{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}
+    .sn{min-width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .sc{flex:1;padding-top:3px}
+    .sc strong{color:var(--text)}
+    .sc p{margin-bottom:4px;color:var(--muted);font-size:13px}
+    .arch{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;margin:16px 0;font-family:'Cascadia Code',monospace;font-size:13px;line-height:1.9;color:var(--muted);overflow-x:auto;white-space:pre}
+    hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+    @media(max-width:900px){#sidebar{display:none}#main{padding:24px 20px}}
+  </style>
+</head>
+<body>
+<nav id="sidebar">
+  <div class="brand"><h1>🤖 Workmate AI</h1><p>Hướng dẫn sử dụng đầy đủ</p></div>
+  <div class="sec-label">Tổng quan</div>
+  <a href="#intro">Giới thiệu</a>
+  <a href="#arch">Kiến trúc hệ thống</a>
+  <a href="#setup">Cài đặt lần đầu</a>
+  <div class="sec-label">Tính năng chính</div>
+  <a href="#dashboard">Dashboard</a>
+  <a href="#chat">Chat với Agent</a>
+  <a href="#agents">Quản lý Agents</a>
+  <a href="#channels">Kênh nhắn tin</a>
+  <a href="#skills">Skills & Marketplace</a>
+  <a href="#workflows">Workflows</a>
+  <a href="#cron">Cron (Lịch hẹn)</a>
+  <div class="sec-label">Tính năng nâng cao</div>
+  <a href="#rag">RAG</a>
+  <a href="#localllm">LocalLLM (Ollama)</a>
+  <a href="#browser">Trình duyệt tích hợp</a>
+  <a href="#quicksearch">Quick Search</a>
+  <a href="#webhooks">Webhooks</a>
+  <div class="sec-label">Cấu hình</div>
+  <a href="#providers">AI Providers</a>
+  <a href="#settings">Cài đặt ứng dụng</a>
+  <a href="#patcher">Patcher (OAuth Bypass)</a>
+  <a href="#updates">Cập nhật ứng dụng</a>
+  <div class="sec-label">Vận hành</div>
+  <a href="#release">Quy trình Release</a>
+  <a href="#upstream">Merge Upstream</a>
+  <a href="#troubleshoot">Xử lý sự cố</a>
+</nav>
+
+<main id="main">
+<h1 class="title">Workmate AI</h1>
+<p class="subtitle">Hướng dẫn sử dụng đầy đủ · Phiên bản 2026.3.30 · Tiếng Việt</p>
+
+<section id="intro">
+<h2><span class="ch">Chương 1</span>Giới thiệu</h2>
+<p><strong>Workmate AI</strong> là ứng dụng desktop (Electron) dùng để điều khiển và tương tác với các <strong>AI agent</strong> trên nền tảng <strong>OpenClaw</strong>. Hiểu đơn giản: Workmate AI là giao diện đồ họa cho OpenClaw — quản lý agent, chat, tự động hóa, kết nối kênh nhắn tin, tất cả từ một cửa sổ duy nhất.</p>
+<div class="callout note"><strong>📌 Về nguồn gốc:</strong> Fork từ <code>Neurons-ai/CrawBot</code>, bổ sung thêm các tính năng cá nhân: RAG, LocalLLM, QuickSearch, WorkflowBuilder. Những tính năng này không có trong bản upstream gốc.</div>
+<h3>Workmate AI làm được gì</h3>
+<div class="grid">
+  <div class="card"><div class="ico">💬</div><h4>Chat AI real-time</h4><p>Streaming, extended thinking, file attachment</p></div>
+  <div class="card"><div class="ico">🤖</div><h4>Quản lý nhiều Agent</h4><p>Tạo, cấu hình, gán kênh cho từng agent</p></div>
+  <div class="card"><div class="ico">📡</div><h4>Kênh nhắn tin</h4><p>WhatsApp, Telegram, Zalo, Discord, Slack…</p></div>
+  <div class="card"><div class="ico">🧩</div><h4>Skills Plugin</h4><p>Mở rộng từ ClawHub marketplace</p></div>
+  <div class="card"><div class="ico">⚡</div><h4>Tự động hóa</h4><p>Workflows, Cron, Webhooks, Triggers</p></div>
+  <div class="card"><div class="ico">📚</div><h4>RAG</h4><p>Hỏi đáp theo nội dung tài liệu thực tế</p></div>
+  <div class="card"><div class="ico">🦙</div><h4>LocalLLM</h4><p>Chạy AI local qua Ollama, offline</p></div>
+  <div class="card"><div class="ico">🌐</div><h4>Browser tích hợp</h4><p>Web automation, cookie, CDP, OAuth</p></div>
+</div>
+</section>
+
+<section id="arch">
+<h2><span class="ch">Chương 2</span>Kiến trúc hệ thống</h2>
+<p>Workmate AI hoạt động theo mô hình 3 tầng: <strong>Renderer</strong> (UI) → <strong>Main Process</strong> (điều phối) → <strong>OpenClaw Gateway</strong> (AI engine).</p>
+<div class="arch">┌─────────────────────────────────────────────────────────┐
+│                  Workmate AI Desktop App                    │
+│                                                         │
+│  Renderer (React 19 + Zustand)   Main Process (Node)   │
+│  src/pages/  src/stores/   ←IPC→  electron/main/       │
+│                                   ipc-handlers.ts       │
+│                  │                      │               │
+│                  └──────────┬───────────┘               │
+│                             │ WebSocket JSON-RPC         │
+│                             ▼                           │
+│               OpenClaw Gateway (:18789)                 │
+│               AI Engine · Agent Runner · Skills         │
+└─────────────────────────────────────────────────────────┘</div>
+<h3>Các thành phần chính</h3>
+<table>
+  <tr><th>Thành phần</th><th>Vị trí</th><th>Vai trò</th></tr>
+  <tr><td><strong>Renderer</strong></td><td><code>src/</code></td><td>Giao diện React, state Zustand</td></tr>
+  <tr><td><strong>Main Process</strong></td><td><code>electron/main/</code></td><td>Window, tray, IPC handlers, updater</td></tr>
+  <tr><td><strong>Gateway Manager</strong></td><td><code>electron/gateway/</code></td><td>Khởi động OpenClaw, WebSocket, OAuth patcher</td></tr>
+  <tr><td><strong>Utils</strong></td><td><code>electron/utils/</code></td><td>Config, paths, provider registry, UV/Python</td></tr>
+  <tr><td><strong>OpenClaw</strong></td><td>Child process</td><td>AI engine thực sự — chạy agent, tools, skills</td></tr>
+</table>
+<div class="callout tip"><strong>💡 Ports:</strong> Dev <code>:5173</code> (Vite) · Gateway <code>:18789</code> · Production <code>:23333</code></div>
+</section>
+
+<section id="setup">
+<h2><span class="ch">Chương 3</span>Cài đặt lần đầu</h2>
+<p>Khi khởi động lần đầu, Workmate AI tự mở <strong>Setup Wizard</strong>.</p>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>Kiểm tra môi trường</strong><p>Wizard tự check Node.js, Python, UV, build tools. Thiếu gì có nút cài tự động.</p></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Chọn AI Provider</strong><p>Nhập API key (Anthropic, OpenAI…) hoặc skip, cấu hình sau trong Settings.</p></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Kết nối kênh nhắn tin</strong><p>Tùy chọn — có thể bỏ qua và thêm sau trong Channels.</p></div></div>
+  <div class="step"><div class="sn">4</div><div class="sc"><strong>Cài Skills mặc định</strong><p>Nên đồng ý để có các tool cơ bản ngay từ đầu.</p></div></div>
+  <div class="step"><div class="sn">5</div><div class="sc"><strong>Hoàn thành</strong><p>Chuyển đến Dashboard.</p></div></div>
+</div>
+</section>
+
+<section id="dashboard">
+<h2><span class="ch">Chương 4</span>Dashboard</h2>
+<p>Trang chủ — hiển thị trạng thái tổng quan và lối tắt đến các tính năng chính.</p>
+<table>
+  <tr><th>Thẻ thông tin</th><th>Ý nghĩa</th></tr>
+  <tr><td><strong>Gateway Status</strong></td><td>Running / Stopped / Error + uptime</td></tr>
+  <tr><td><strong>Channels</strong></td><td>Số kênh nhắn tin đang kết nối</td></tr>
+  <tr><td><strong>Skills</strong></td><td>Số skills đang kích hoạt</td></tr>
+</table>
+<div class="callout tip"><strong>💡 Dev Console:</strong> Bật Dev Mode (Settings → Developer) → Dashboard hiển thị nút mở OpenClaw web UI để debug Gateway trực tiếp.</div>
+</section>
+
+<section id="chat">
+<h2><span class="ch">Chương 5</span>Chat với Agent</h2>
+<p>Tính năng cốt lõi — tương tác với AI agent theo thời gian thực, xem quá trình suy nghĩ và thực thi tool.</p>
+<h3>Bố cục giao diện</h3>
+<table>
+  <tr><th>Khu vực</th><th>Chức năng</th></tr>
+  <tr><td><strong>Chat Toolbar</strong></td><td>Chọn session, model, toggle thinking, nút abort, token counter</td></tr>
+  <tr><td><strong>Message List</strong></td><td>Lịch sử chat — streaming, markdown, thinking blocks, tool cards</td></tr>
+  <tr><td><strong>Chat Input</strong></td><td>Soạn tin nhắn, đính kèm file/ảnh</td></tr>
+  <tr><td><strong>File Tree</strong></td><td>Browser workspace của agent (ẩn/hiện được)</td></tr>
+  <tr><td><strong>Browser Panel</strong></td><td>Trình duyệt tích hợp cho web automation (toggle)</td></tr>
+</table>
+<h3>Extended Thinking</h3>
+<p>Bật toggle <strong>Extended Thinking</strong> trên toolbar → agent hiển thị block "suy nghĩ" trước khi trả lời. Click vào block để mở rộng / thu gọn.</p>
+<div class="callout note"><strong>📌</strong> Chỉ khả dụng với Claude 3.5 Sonnet trở lên.</div>
+<h3>Tool Execution</h3>
+<p>Agent gọi tool → Workmate AI hiển thị <strong>tool call card</strong>: tên tool · input · output · trạng thái (running / done / error).</p>
+<p><strong>Tools Auto-Approve:</strong> Settings → Chat → bật để agent tự chạy tool không cần xác nhận. Tắt để kiểm soát từng bước.</p>
+<h3>Token Counter</h3>
+<p>Toolbar hiển thị số token thực tế (input / output / cache) theo thời gian thực — theo dõi chi phí API.</p>
+<h3>Dừng Agent</h3>
+<ul>
+  <li><strong>Abort Stream</strong> — dừng response đang stream, agent vẫn chạy ngầm</li>
+  <li><strong>Stop Agent</strong> — dừng hoàn toàn agent run hiện tại</li>
+</ul>
+</section>
+
+<section id="agents">
+<h2><span class="ch">Chương 6</span>Quản lý Agents</h2>
+<p>Agent là "nhân vật AI" do bạn định nghĩa — system prompt riêng, model riêng, workspace riêng, gán được vào kênh nhắn tin.</p>
+<h3>Tạo Agent mới</h3>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>New Agent</strong><p>Góc trên phải trang Agents.</p></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Cấu hình cơ bản</strong><p>Chọn emoji icon, tên, mô tả ngắn.</p></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Viết System Prompt</strong><p>Định nghĩa vai trò, phong cách, nhiệm vụ cụ thể.</p></div></div>
+  <div class="step"><div class="sn">4</div><div class="sc"><strong>Chọn model mặc định</strong><p>Model dùng khi không override trong Chat.</p></div></div>
+</div>
+<table>
+  <tr><th>Cài đặt nâng cao</th><th>Mô tả</th></tr>
+  <tr><td><strong>Workspace Path</strong></td><td>Thư mục file agent có quyền đọc/ghi</td></tr>
+  <tr><td><strong>Channel Binding</strong></td><td>Gán agent làm "người trả lời" cho kênh nhắn tin cụ thể</td></tr>
+</table>
+</section>
+
+<section id="channels">
+<h2><span class="ch">Chương 7</span>Kênh nhắn tin (Channels)</h2>
+<p>Kết nối Workmate AI với nền tảng chat bên ngoài. Agent tự trả lời khi có tin nhắn đến.</p>
+<div class="grid">
+  <div class="card"><div class="ico">💚</div><h4>WhatsApp</h4><p>QR pairing, multi-account</p></div>
+  <div class="card"><div class="ico">✈️</div><h4>Telegram</h4><p>Bot token, webhook</p></div>
+  <div class="card"><div class="ico">🔵</div><h4>Zalo</h4><p>QR pairing</p></div>
+  <div class="card"><div class="ico">🎮</div><h4>Discord</h4><p>Bot token</p></div>
+  <div class="card"><div class="ico">💜</div><h4>Slack</h4><p>OAuth, workspace</p></div>
+  <div class="card"><div class="ico">📧</div><h4>Email</h4><p>SMTP/IMAP</p></div>
+</div>
+<h3>Thêm kênh mới</h3>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>Add Channel</strong><p>Chọn platform từ dropdown.</p></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Nhập credentials</strong><p>Mỗi platform có trường riêng: Bot Token, API Key, Webhook URL…</p></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Save</strong><p>Gateway tự restart để áp dụng cấu hình mới.</p></div></div>
+  <div class="step"><div class="sn">4</div><div class="sc"><strong>Gán Agent</strong><p>Chọn agent sẽ trả lời tin nhắn từ kênh này.</p></div></div>
+</div>
+<h3>QR Code Pairing (WhatsApp, Zalo)</h3>
+<ol><li>Click <strong>Request QR Code</strong></li><li>Mở app điện thoại → quét mã</li><li>Kênh chuyển sang Connected</li></ol>
+<div class="callout warn"><strong>⚠️</strong> QR code hết hạn sau ~60 giây. Nếu hết hạn, nhấn Request lại.</div>
+<h3>Session DM Scope</h3>
+<table>
+  <tr><th>Giá trị</th><th>Ý nghĩa</th></tr>
+  <tr><td><code>main</code></td><td>Tất cả dùng chung một session</td></tr>
+  <tr><td><code>per-peer</code></td><td>Mỗi người dùng một session riêng</td></tr>
+  <tr><td><code>per-channel-peer</code></td><td>Mỗi người + kênh = một session</td></tr>
+  <tr><td><code>per-account-channel-peer</code></td><td>Chi tiết nhất: account + kênh + người</td></tr>
+</table>
+</section>
+
+<section id="skills">
+<h2><span class="ch">Chương 8</span>Skills & Marketplace</h2>
+<p>Plugin mở rộng khả năng agent — tìm kiếm web, xử lý file, tích hợp API bên thứ ba. Quản lý qua <strong>ClawHub Marketplace</strong>.</p>
+<h3>Cài skill</h3>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>Tab Marketplace</strong><p>Gõ từ khóa tìm kiếm.</p></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Xem chi tiết</strong><p>Mô tả, phiên bản, yêu cầu API key.</p></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Install</strong><p>Chờ progress → skill xuất hiện tab Installed.</p></div></div>
+</div>
+<p><strong>Cấu hình skill:</strong> Tab Installed → click skill → nhập API key, env variables → Save.</p>
+<div class="callout tip"><strong>💡</strong> Skills cần API key của service đó (vd: Brave Search key), không phải AI provider key.</div>
+</section>
+
+<section id="workflows">
+<h2><span class="ch">Chương 9</span>Workflows</h2>
+<p>Chuỗi tác vụ tự động hóa qua giao diện kéo thả (ReactFlow) — nối nhiều bước thành một quy trình hoàn chỉnh.</p>
+<table>
+  <tr><th>Node</th><th>Chức năng</th></tr>
+  <tr><td><strong>Input</strong></td><td>Điểm bắt đầu — nhận dữ liệu đầu vào</td></tr>
+  <tr><td><strong>LLM</strong></td><td>Gọi AI model để xử lý, phân tích, tạo nội dung</td></tr>
+  <tr><td><strong>Output</strong></td><td>Điểm kết thúc — xuất kết quả</td></tr>
+</table>
+<ul>
+  <li><strong>Run</strong> — chạy thủ công ngay lập tức</li>
+  <li><strong>Instances</strong> — xem lịch sử chạy, trạng thái, log</li>
+  <li><strong>Enable/Disable</strong> — bật/tắt workflow</li>
+  <li><strong>Cancel</strong> — dừng instance đang chạy</li>
+</ul>
+</section>
+
+<section id="cron">
+<h2><span class="ch">Chương 10</span>Cron — Lịch hẹn tự động</h2>
+<p>Lên lịch để agent tự động thực thi tác vụ theo định kỳ.</p>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>New Job</strong><p>Trang Cron → tạo mới.</p></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Chọn lịch</strong><p>Preset hoặc cron expression tùy chỉnh.</p></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Nhập tác vụ</strong><p>Prompt agent thực thi. Chọn AI model dùng cho job.</p></div></div>
+  <div class="step"><div class="sn">4</div><div class="sc"><strong>Save và Enable</strong><p>Toggle bật → job tự chạy.</p></div></div>
+</div>
+<h3>Cron Expression tham khảo</h3>
+<pre><code>* * * * *      # Mỗi phút
+0 * * * *      # Mỗi giờ
+0 9 * * *      # Mỗi ngày lúc 9:00 sáng
+0 9 * * 1      # Mỗi thứ Hai lúc 9:00
+0 9 1 * *      # Ngày đầu tháng lúc 9:00</code></pre>
+<div class="callout tip"><strong>💡 Trigger Now:</strong> Chạy job ngay lập tức không cần chờ lịch — hữu ích khi test.</div>
+</section>
+
+<section id="rag">
+<h2><span class="ch">Chương 11</span>RAG — Tri thức từ tài liệu <span class="badge bp">Personal Feature</span></h2>
+<p><strong>RAG (Retrieval-Augmented Generation)</strong> cho phép agent tham chiếu nội dung từ tài liệu bạn cung cấp — PDF, TXT, Markdown — thay vì chỉ dùng kiến thức training.</p>
+<div class="arch">Tài liệu (PDF / TXT / MD)
+        │
+        ▼  Embedding (vector hóa nội dung)
+Vector Database (local)
+        │
+        ▼  Agent query: "tìm đoạn liên quan"
+Relevant chunks → thêm vào context của AI
+        │
+        ▼
+AI trả lời dựa trên nội dung thực tế của tài liệu</div>
+<h3>Index tài liệu</h3>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>Vào trang RAG</strong></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Upload file</strong><p>Hỗ trợ <code>.pdf</code>, <code>.txt</code>, <code>.md</code>. Kéo thả hoặc click chọn.</p></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Chờ indexing</strong><p>Xong → file xuất hiện với timestamp.</p></div></div>
+</div>
+<div class="callout tip"><strong>💡</strong> Index tài liệu kỹ thuật, hướng dẫn, dữ liệu nội bộ. Agent trả lời dựa trên nội dung thực, không phải đoán.</div>
+</section>
+
+<section id="localllm">
+<h2><span class="ch">Chương 12</span>LocalLLM — Chạy AI offline qua Ollama <span class="badge bp">Personal Feature</span></h2>
+<p>Tích hợp <strong>Ollama</strong> — chạy AI model trên máy, không cần API key, không phí cloud, hoàn toàn private.</p>
+<div class="callout note"><strong>📌 Yêu cầu:</strong> Cài Ollama trên máy trước (<code>ollama.com</code>). Workmate AI tự detect.</div>
+<table>
+  <tr><th>Thao tác</th><th>Cách làm</th></tr>
+  <tr><td>Xem models đã cài</td><td>Trang LocalLLM → danh sách tự load</td></tr>
+  <tr><td>Tải model mới</td><td>Nhập tên (vd: <code>llama3.2</code>) → Pull → chờ progress</td></tr>
+  <tr><td>Xóa model</td><td>Click Delete bên cạnh model</td></tr>
+</table>
+<p><strong>Dùng trong Chat:</strong> Settings → Providers → thêm Ollama provider → model local xuất hiện trong dropdown chọn model.</p>
+<div class="callout tip"><strong>💡 Gợi ý model theo RAM:</strong><br/>
+8GB → <code>llama3.2:3b</code>, <code>phi3:mini</code><br/>
+16GB → <code>llama3.2:8b</code>, <code>mistral:7b</code><br/>
+32GB+ → <code>llama3.1:70b-q4</code>, <code>qwen2.5:32b</code></div>
+</section>
+
+<section id="browser">
+<h2><span class="ch">Chương 13</span>Trình duyệt tích hợp</h2>
+<p>Browser built-in (Chromium) cho phép agent thực hiện web automation — điều hướng, điền form, chụp ảnh, xuất PDF, quản lý cookies.</p>
+<table>
+  <tr><th>Tính năng</th><th>Mô tả</th></tr>
+  <tr><td><strong>Multi-tab</strong></td><td>Nhiều tab, mỗi tab có thể thuộc session khác nhau</td></tr>
+  <tr><td><strong>Navigation</strong></td><td>Back, Forward, Reload, nhập URL</td></tr>
+  <tr><td><strong>Print to PDF</strong></td><td>Xuất trang web thành PDF</td></tr>
+  <tr><td><strong>Cookie Management</strong></td><td>Import / Export / Clear cookies</td></tr>
+  <tr><td><strong>CDP</strong></td><td>Chrome DevTools Protocol cho automation nâng cao</td></tr>
+  <tr><td><strong>Detach</strong></td><td>Tách panel thành cửa sổ riêng</td></tr>
+</table>
+<h3>Web Authentication</h3>
+<p>Settings → Web Auth → Thêm provider (Google, GitHub…) → Login → browser mở trang đăng nhập → token lưu lại cho agent dùng.</p>
+</section>
+
+<section id="quicksearch">
+<h2><span class="ch">Chương 14</span>Quick Search <span class="badge bp">Personal Feature</span></h2>
+<p>Popup nhỏ gửi câu hỏi đến agent ngay lập tức mà không cần mở full app.</p>
+<ol>
+  <li>Kích hoạt bằng phím tắt (cấu hình ở cấp hệ điều hành)</li>
+  <li>Popup xuất hiện giữa màn hình</li>
+  <li>Gõ câu hỏi → <kbd>Enter</kbd></li>
+  <li>Workmate AI điều hướng về Chat và gửi tin nhắn</li>
+  <li><kbd>Esc</kbd> để đóng</li>
+</ol>
+</section>
+
+<section id="webhooks">
+<h2><span class="ch">Chương 15</span>Webhooks & HTTP Server</h2>
+<p>Nhận webhook từ service bên ngoài (GitHub, Stripe, Zapier…) và trigger agent phản hồi tự động.</p>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>New Webhook</strong><p>Đặt tên và path cho endpoint.</p></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Copy URL</strong><p>Dán vào service bên ngoài.</p></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Gán làm Trigger</strong><p>Kết nối với Workflow hoặc Cron job.</p></div></div>
+</div>
+<p>Tab <strong>Logs</strong> trong mỗi webhook — xem tất cả request đã nhận, payload, thời gian, response code.</p>
+</section>
+
+<section id="providers">
+<h2><span class="ch">Chương 16</span>AI Providers</h2>
+<div class="grid">
+  <div class="card"><div class="ico">🟠</div><h4>Anthropic</h4><p>Claude 3.5 Sonnet, Opus, Haiku</p></div>
+  <div class="card"><div class="ico">🟢</div><h4>OpenAI</h4><p>GPT-4o, GPT-4 Turbo, o1</p></div>
+  <div class="card"><div class="ico">🦙</div><h4>Ollama</h4><p>Local models, offline</p></div>
+  <div class="card"><div class="ico">⚙️</div><h4>Custom</h4><p>Bất kỳ API tương thích OpenAI</p></div>
+</div>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>Settings → Providers → Add</strong></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Chọn loại provider</strong></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Nhập API Key → Validate</strong><p>Kiểm tra key có hoạt động không.</p></div></div>
+  <div class="step"><div class="sn">4</div><div class="sc"><strong>Set as Default</strong><p>Provider dùng khi không chỉ định cụ thể.</p></div></div>
+</div>
+<div class="callout note"><strong>📌 OAuth (Anthropic):</strong> Có thể đăng nhập qua tài khoản Claude.ai thay vì API key riêng.</div>
+</section>
+
+<section id="settings">
+<h2><span class="ch">Chương 17</span>Cài đặt ứng dụng</h2>
+<h3>General</h3>
+<table>
+  <tr><th>Cài đặt</th><th>Mô tả</th></tr>
+  <tr><td><strong>Theme</strong></td><td>Light / Dark / System</td></tr>
+  <tr><td><strong>Language</strong></td><td>EN / 中文 / 日本語 / Tiếng Việt</td></tr>
+  <tr><td><strong>Launch at Startup</strong></td><td>Tự khởi động cùng hệ điều hành</td></tr>
+  <tr><td><strong>Start Minimized</strong></td><td>Khởi động thu vào system tray</td></tr>
+</table>
+<h3>Gateway</h3>
+<table>
+  <tr><th>Cài đặt</th><th>Mô tả</th></tr>
+  <tr><td><strong>Auto-start</strong></td><td>Tự khởi động OpenClaw Gateway khi mở app</td></tr>
+  <tr><td><strong>Port</strong></td><td>WebSocket port (mặc định 18789)</td></tr>
+</table>
+<h3>Chat & Automation</h3>
+<table>
+  <tr><th>Cài đặt</th><th>Mô tả</th></tr>
+  <tr><td><strong>Tools Auto-Approve</strong></td><td>Agent tự chạy tool không cần xác nhận</td></tr>
+  <tr><td><strong>Session DM Scope</strong></td><td>Cách phân chia session theo người dùng kênh</td></tr>
+  <tr><td><strong>Built-in Browser</strong></td><td>Bật/tắt trình duyệt tích hợp</td></tr>
+  <tr><td><strong>Screenshot Max Side</strong></td><td>Giới hạn kích thước screenshot (px)</td></tr>
+</table>
+</section>
+
+<section id="patcher">
+<h2><span class="ch">Chương 18</span>Patcher — Anthropic OAuth Bypass <span class="badge ba">Advanced</span></h2>
+<p>Hệ thống intercept luồng giao tiếp giữa OpenClaw và Anthropic API, cho phép dùng Claude qua tài khoản Anthropic.com thay vì API key.</p>
+<div class="callout danger"><strong>⚠️</strong> Tính năng nội bộ nâng cao. Chỉ chỉnh sửa nếu hiểu rõ cơ chế — sai cấu hình có thể làm gián đoạn kết nối.</div>
+<div class="arch">Workmate AI → OpenClaw → LLM Patcher Proxy → Anthropic API
+                          │
+                 Intercept & rewrite:
+                 • HTTP headers (xóa fingerprint)
+                 • Tool names (bypass signature check)
+                 • System prompt content
+                 • Response stream</div>
+<table>
+  <tr><th>Category</th><th>Chức năng</th></tr>
+  <tr><td><code>system</code></td><td>Rewrite nội dung system prompt</td></tr>
+  <tr><td><code>tool_name</code></td><td>Đổi tên tool để bypass signature check</td></tr>
+  <tr><td><code>tool_desc</code></td><td>Rewrite mô tả tool</td></tr>
+  <tr><td><code>response</code></td><td>Xử lý response từ API</td></tr>
+  <tr><td><code>header</code></td><td>Xóa/thêm HTTP headers</td></tr>
+</table>
+<p>Settings → Patcher → text editor: enable/disable từng rule, chỉnh sửa pattern (hỗ trợ Regex).</p>
+</section>
+
+<section id="updates">
+<h2><span class="ch">Chương 19</span>Cập nhật ứng dụng</h2>
+<table>
+  <tr><th>Cài đặt</th><th>Mô tả</th></tr>
+  <tr><td><strong>Update Channel</strong></td><td>stable / beta / dev</td></tr>
+  <tr><td><strong>Auto Check</strong></td><td>Tự kiểm tra khi mở app</td></tr>
+  <tr><td><strong>Auto Download</strong></td><td>Tự tải về khi có bản mới</td></tr>
+</table>
+<p>Mặc định <code>autoDownload: false</code> — app hỏi trước khi download. Sau khi tải xong, bản mới cài khi tắt app (<code>autoInstallOnAppQuit: true</code>).</p>
+</section>
+
+<section id="release">
+<h2><span class="ch">Chương 20</span>Quy trình Release</h2>
+<div class="steps">
+  <div class="step"><div class="sn">1</div><div class="sc"><strong>Bump version trong <code>package.json</code></strong><p>Format: <code>YYYY.M.D</code> — vd: <code>2026.4.11</code></p></div></div>
+  <div class="step"><div class="sn">2</div><div class="sc"><strong>Tag và push</strong><pre><code>git tag v2026.4.11
+git push origin main --tags</code></pre></div></div>
+  <div class="step"><div class="sn">3</div><div class="sc"><strong>Chuyển repo sang Public trên GitHub</strong><p>Settings → Danger Zone → Change visibility → Public. Làm trước khi Actions chạy xong.</p></div></div>
+  <div class="step"><div class="sn">4</div><div class="sc"><strong>Chờ GitHub Actions (~15-30 phút)</strong><p>Build mac/win/linux song song → publish GitHub Releases tự động.</p></div></div>
+  <div class="step"><div class="sn">5</div><div class="sc"><strong>Chuyển repo về Private</strong><p>Sau khi release published.</p></div></div>
+</div>
+<div class="callout danger"><strong>⚠️ Quan trọng:</strong> Nếu repo Private khi app check update, electron-updater không fetch được <code>latest.yml</code> → auto-update không hoạt động. Phải Public trong lúc app đang check.</div>
+</section>
+
+<section id="upstream">
+<h2><span class="ch">Chương 21</span>Merge Upstream</h2>
+<p>Định kỳ merge code mới từ <code>Neurons-ai/CrawBot</code> để nhận tính năng và bugfix.</p>
+<pre><code>git fetch upstream
+git merge upstream/main --no-commit --no-ff
+# Resolve conflicts, restore personal features
+git commit
+git push origin main</code></pre>
+<h3>Files phải restore sau mỗi lần merge</h3>
+<p>Upstream xóa các tính năng cá nhân. Luôn restore sau khi merge:</p>
+<table>
+  <tr><th>File</th><th>Tính năng</th></tr>
+  <tr><td><code>src/pages/Rag/index.tsx</code></td><td>RAG</td></tr>
+  <tr><td><code>src/pages/LocalLLM/index.tsx</code></td><td>Ollama Local LLM</td></tr>
+  <tr><td><code>src/pages/QuickSearch.tsx</code></td><td>Quick Search popup</td></tr>
+  <tr><td><code>src/pages/WorkflowBuilder/index.tsx</code></td><td>Visual Workflow Builder</td></tr>
+  <tr><td><code>electron/main/rag.ts</code></td><td>RAG backend</td></tr>
+  <tr><td><code>electron/main/quick-search.ts</code></td><td>Quick Search window</td></tr>
+  <tr><td><code>electron/utils/ollama.ts</code></td><td>Ollama API client</td></tr>
+  <tr><td>Routes trong <code>src/App.tsx</code></td><td>/rag, /localllm, /quick-search, /workflow</td></tr>
+  <tr><td>Handlers trong <code>ipc-handlers.ts</code></td><td>rag:*, ollama:*, quick-search handlers</td></tr>
+</table>
+<pre><code>git checkout HEAD -- \
+  src/pages/Rag/index.tsx \
+  src/pages/LocalLLM/index.tsx \
+  src/pages/QuickSearch.tsx \
+  src/pages/WorkflowBuilder/index.tsx \
+  electron/main/rag.ts \
+  electron/main/quick-search.ts \
+  electron/utils/ollama.ts \
+  src/App.tsx</code></pre>
+</section>
+
+<section id="troubleshoot">
+<h2><span class="ch">Chương 22</span>Xử lý sự cố</h2>
+<h3>Gateway không khởi động</h3>
+<ul>
+  <li>Kiểm tra port 18789: <code>lsof -i :18789</code> (Mac/Linux) hoặc <code>netstat -ano | findstr 18789</code> (Windows)</li>
+  <li>Xem logs: Settings → Developer → View Logs</li>
+  <li>Dashboard → Stop → Start để restart thủ công</li>
+</ul>
+<h3>Agent không trả lời</h3>
+<ul>
+  <li>Kiểm tra API key: Settings → Providers → Validate</li>
+  <li>Kiểm tra Gateway đang Running (Dashboard)</li>
+  <li>Thử model khác để loại trừ model-specific issue</li>
+  <li>Clear session và tạo mới</li>
+</ul>
+<h3>Kênh mất kết nối</h3>
+<ul>
+  <li>WhatsApp / Zalo: QR hết hạn → Request QR mới</li>
+  <li>Telegram: Kiểm tra Bot Token còn active</li>
+  <li>Restart Gateway sau khi cập nhật credentials</li>
+</ul>
+<h3>Auto-update không hoạt động</h3>
+<ul>
+  <li>Kiểm tra repo đang Public trên GitHub</li>
+  <li>Settings → Updates → Check Now (kiểm tra thủ công)</li>
+  <li>Xác nhận đúng Update Channel (stable/beta/dev)</li>
+</ul>
+<hr/>
+<p style="text-align:center;color:var(--dim);font-size:13px;margin-top:32px">
+  Workmate AI · v2026.3.30 · Tài liệu nội bộ · Cập nhật 2026-04-11
+</p>
+</section>
+
+</main>
+<script>
+  const sections=document.querySelectorAll('section[id]');
+  const links=document.querySelectorAll('#sidebar a');
+  new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=document.querySelector('#sidebar a[href="#'+e.target.id+'"]');
+        if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'}).observe.call(
+    new IntersectionObserver(()=>{}),document.body
+  );
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=document.querySelector('#sidebar a[href="#'+e.target.id+'"]');
+        if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
