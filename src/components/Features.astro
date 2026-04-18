@@ -1,0 +1,57 @@
+---
+const features = [
+  {
+    title: "Đọc hiểu tài liệu nội bộ",
+    desc: "Cho Workmate học toàn bộ tài liệu công ty (PDF, Word, Excel, wiki). Hỏi bất kỳ câu nào, AI trả lời dựa trên data của bạn (công nghệ RAG).",
+    icon: "📚",
+  },
+  {
+    title: "Tự động hóa trình duyệt",
+    desc: "AI điều khiển trình duyệt để điền form, scrape dữ liệu, đặt đơn, kiểm tra giá — như một con người thao tác.",
+    icon: "🌐",
+  },
+  {
+    title: "Kết nối messaging",
+    desc: "Tích hợp Telegram, Slack, Discord, Zalo. AI gửi báo cáo, cảnh báo, phản hồi khách hàng tự động.",
+    icon: "💬",
+  },
+  {
+    title: "Chạy local — dữ liệu không rời máy",
+    desc: "Toàn bộ xử lý trên máy bạn. Kết nối LLM của bạn (Claude, OpenAI, Gemini, hoặc local). Không gửi data lên server bên thứ ba.",
+    icon: "🔒",
+  },
+  {
+    title: "Workflow no-code",
+    desc: "Kéo-thả các bước tự động hóa. Không cần viết code, không cần biết API. Lên lịch chạy hàng ngày/tuần/giờ.",
+    icon: "⚡",
+  },
+  {
+    title: "Đa nền tảng",
+    desc: "Chạy trên Windows, macOS (Intel + Apple Silicon) và Linux. Cài bản nào phù hợp với máy bạn.",
+    icon: "💻",
+  },
+]
+---
+
+<section id="features" class="bg-gray-50 py-20 sm:py-28">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">Tính năng chính</p>
+      <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        Mọi thứ bạn cần để AI trở thành đồng nghiệp thật
+      </h2>
+    </div>
+
+    <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        features.map((f) => (
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-brand-200 hover:shadow-lg hover:shadow-brand-600/5">
+            <div class="text-3xl">{f.icon}</div>
+            <h3 class="mt-4 text-lg font-bold text-gray-900">{f.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-gray-600">{f.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

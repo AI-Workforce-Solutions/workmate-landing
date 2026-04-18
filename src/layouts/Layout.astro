@@ -1,0 +1,49 @@
+---
+import "../styles/global.css"
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = "Workmate AI — Đồng Nghiệp AI của bạn",
+  description = "Trợ lý AI và nền tảng tự động hóa công việc cho dân văn phòng, freelancer và doanh nghiệp. Cài một lần, dùng mãi.",
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://workmate.aiws.vn" />
+    <meta property="og:site_name" content="Workmate AI" />
+    <meta property="og:locale" content="vi_VN" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://workmate.aiws.vn" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="antialiased">
+    <slot />
+  </body>
+</html>
