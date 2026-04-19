@@ -207,10 +207,16 @@
 
     if (!release) {
       try {
-        const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`)
+        // Use /releases (list) instead of /releases/latest so we can pick
+        // the newest published release even if it's flagged prerelease
+        // (alpha/beta/rc). /latest only returns stable non-prerelease.
+        const res = await fetch(`https://api.github.com/repos/${repo}/releases?per_page=10`)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        release = await res.json()
-        localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), data: release }))
+        const list: Array<Release & { draft: boolean }> = await res.json()
+        release = list.find((r) => !r.draft) ?? null
+        if (release) {
+          localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), data: release }))
+        }
       } catch (e) {
         const versionEl = document.querySelector(`[data-download-version="${key}"]`)
         if (versionEl) versionEl.textContent = "—"
@@ -218,7 +224,11 @@
       }
     }
 
-    if (!release) return
+    if (!release) {
+      const versionEl = document.querySelector(`[data-download-version="${key}"]`)
+      if (versionEl) versionEl.textContent = "Chưa phát hành"
+      return
+    }
 
     const versionEl = document.querySelector(`[data-download-version="${key}"]`)
     if (versionEl) {
