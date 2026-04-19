@@ -1,0 +1,21 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <!-- Monogram tile -->
+  <g transform="translate(20, 25) scale(0.146)">
+    <rect width="1024" height="1024" rx="220" ry="220" fill="url(#bgGrad2)"/>
+    <path d="M 240 310 L 360 760 L 512 490 L 664 760 L 784 310"
+          stroke="white" stroke-width="92"
+          stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="792" cy="762" r="68" fill="#fbbf24"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="200" y="105" font-family="Inter, 'Be Vietnam Pro', system-ui, sans-serif"
+        font-size="68" font-weight="800" fill="#111827" letter-spacing="-1.5">Workmate</text>
+  <text x="200" y="158" font-family="Inter, 'Be Vietnam Pro', system-ui, sans-serif"
+        font-size="24" font-weight="500" fill="#2563eb" letter-spacing="3">Đồng nghiệp AI của bạn</text>
+</svg>
